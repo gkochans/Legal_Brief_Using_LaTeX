@@ -1,0 +1,180 @@
+%This template produces a legal brief in the format typically required by U.S. courts. The user can fill in basic information about the filing attorney, the parties, the case, and the jurisdiction and this template will automatically generate the case caption.
+% Line numbering is accomplished using the Wallpaper package to insert the line numbering and borders on each page. For this to work, the file "briefbkgd.pdf" included with this template should be placed in the same folder as this template.
+
+% Set the document class to "article" and the base font size to 12 point
+\documentclass[12pt]{article}
+
+% Package for inserting the brief title in the footer
+\usepackage{fancyhdr}
+
+% List alignment settings.
+\usepackage{enumitem}
+\setlist{itemsep=23.5pt,topsep=0pt,parsep=0pt,partopsep=0pt,labelindent=2em,labelwidth=2em,%
+labelsep=2em}
+
+% Changes language in the caption depending on whether the filing attorney is representing the plaintiff of the defendant.
+\usepackage{xstring}
+\fancyhf{}
+\pagestyle{fancy}
+\renewcommand{\headrulewidth}{0pt}
+
+% Basic formatting packages
+\usepackage[doublespacing]{setspace}
+\usepackage[left=1.25in,top=1in,right=0.85in,bottom=1in]{geometry}
+
+% As mentioned above, Wallpaper incorporates the line-numbered brief paper from a separate PDF document (which was also generated using LaTeX). The template for the brief paper is "briefpaper.tex" and can be modified to satisfy court-specific rules.
+\usepackage{wallpaper}
+\ULCornerWallPaper{1}{briefbkgd.pdf}
+
+% Handles single-space formatting in the caption and alignment of the double-spaced body text.
+\usepackage{multirow}
+\linespread{1.6}
+
+% Prevents widowed lines of text.
+\usepackage[all]{nowidow}
+
+% Dummy text for example. Can be removed from the template.
+\usepackage{lipsum}
+
+% Only used for hyperlink to the PDF containing basic syntax instructions.
+\usepackage[colorlinks = true,linkcolor = blue,urlcolor  = blue,citecolor = blue,anchorcolor = blue]{hyperref}
+
+% Changes to section header font size, typeface, spacing, and counters.
+\makeatletter
+\renewcommand\section{ 
+  \@startsection {section}{1}{\z@}% 
+                 {23pt}% 
+                 {23pt}% 
+                 {\normalfont\normalsize\bfseries}} 
+\renewcommand\subsection{ 
+  \@startsection {subsection}{1}{\z@}% 
+                 {23pt}% 
+                 {23pt}% 
+                 {\normalfont\normalsize\bfseries}} 
+\renewcommand\subsubsection{ 
+  \@startsection {subsubsection}{1}{\z@}% 
+                 {23pt}% 
+                 {23pt}% 
+                 {\normalfont\normalsize\bfseries}} 
+\makeatother
+\makeatletter
+	\renewcommand\thesection   {\@Roman\c@section .}
+	\renewcommand\thesubsection   {{\hspace{2em}}\@Alph\c@subsection .}
+	\renewcommand\thesubsubsection   {{\hspace{4em}}\@arabic\c@subsubsection .}
+\makeatother
+
+% Header and footer information.
+\setlength{\headheight}{12pt}
+\lfoot{\BriefName}
+\rfoot{\thepage}
+
+%Line spacing for caption and signature block.
+\renewcommand{\arraystretch}{.5}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BEGIN FILL-IN-THE-BLANK SECTION        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%Enter case-specific information here.
+\newcommand{\BriefName}{Plaintiff's Motion for Summary Judgment}
+\newcommand{\PartyOneFull}{John Smith}
+\newcommand{\PartyOneTitle}{Plaintiff}
+\newcommand{\PartyTwoFull}{Mary Jones}
+\newcommand{\PartyTwoTitle}{Defendant}
+\newcommand{\CourtNameOne}{United States District Court}
+\newcommand{\CourtNameTwo}{Northern District of California}
+\newcommand{\CaseNumber}{00 XX XX 99999}
+\newcommand{\AttorneyOneName}{Joe Attorney (Bar \# 999999)}
+\newcommand{\AttorneyTwoName}{Leslie Lawyer (Bar \# 000000)}
+\newcommand{\FirmName}{Attorney and Lawyer LLP}
+\newcommand{\FirmAddressOne}{One Fifteenth Avenue}
+\newcommand{\FirmAddressTwo}{San Francisco, CA 94100}
+\newcommand{\FirmTelephone}{555-555-5555}
+\newcommand{\FirmFacsimile}{555-555-6666}
+
+% Set conditional clauses.
+\newcommand{\RepresentingPlaintiffOrDefendant}{Plaintiff}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% END FILL-IN-THE-BLANK SECTION        %
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{document}
+
+\begin{spacing}{1} 
+{\noindent
+\AttorneyOneName \\
+\AttorneyTwoName \\
+\FirmName \\
+\FirmAddressOne \\
+\FirmAddressTwo \\
+\indent Telephone: \FirmTelephone \\
+\indent Facsimile: \FirmFacsimile \\
+\\
+Attorneys for \IfSubStr{\RepresentingPlaintiffOrDefendant}{Plaintiff}{\PartyOneTitle, \\ \indent\PartyOneFull}{\PartyTwoTitle, \\ \indent\PartyTwoFull}
+\\ \\
+}
+\end{spacing}
+
+\begin{spacing}{1.6} 
+\centerline{\bf{\MakeUppercase{\CourtNameOne}}}
+\centerline{\bf{\MakeUppercase{\CourtNameTwo}}}
+\end{spacing}
+\hspace{1em}\\
+
+{\noindent
+\begin{tabular}{ p{3in} | p{3in} }
+\cline{1-1} \\
+\PartyOneFull, &  \\
+\hfill\emph{\PartyOneTitle}. & \\
+\centerline{v.} & \hfill\ Case No. \CaseNumber \\
+\PartyTwoFull, & \bf{\BriefName} \\
+\hfill\emph{\PartyTwoTitle}. & \\
+& \\
+\cline{1-1}
+\end{tabular}
+
+%Adjust the number after {spacing} depending on vertical length of the caption to line up any body text on the first page with the line numbers of the brief paper.
+\begin{spacing}{1.4}
+	\hspace{1em}
+\end{spacing}
+
+}
+
+\section{Introduction}
+This is an example of a legal brief, in a format commonly used by attorneys in the United States. It is produced using the \LaTeX\ document preparation system. There are a variety of benefits to using \LaTeX\ instead of Microsoft Word in this context: \\
+\begin{enumerate}
+\item Effortless alignment of line numbers.
+\item Advanced typesetting (ligatures, hyphenation, etc.) for an improved reading experience.
+\item Complete separation of content from formatting limits distractions while drafting.
+\item Heading and signature block information is specified once, at the beginning of the file. The document template is automatically populated with case-specific information. \\ \end{enumerate}
+To use this template, make sure that the PDF file \href{http://www.gregkochansky.com/assets/Contract_Automation_Using_LaTeX.pdf}{BriefBkgd.pdf} is saved in the same folder as this template file. You can alter the format of BriefBkgd.pdf itself by editing the file \href{http://www.gregkochansky.com/assets/Contract_Automation_Using_LaTeX.pdf}{BriefBkgd.tex}. The entire package of files can also be downloade from this GitHub repository. When using this template file, follow the same basic syntax rules described in the \href{http://www.gregkochansky.com/assets/Contract_Automation_Using_LaTeX.pdf}{Contract Automation Using \LaTeX} documentation. Dummy text follows to demonstrate auto-numbering of nested headers and multi-page functionality.
+\section{First Issue}
+\lipsum[1]
+\subsection{First Subissue}
+\lipsum[2]
+\subsubsection{First Sub-Subissue}
+\lipsum[3]
+\subsubsection{Second Sub-Subissue}
+\lipsum[4]
+\subsection{Second Subissue}
+\lipsum[5]
+\section{Second Issue}
+\lipsum[6]
+\section{Conclusion}  
+\lipsum[7]
+
+\vspace{2cm}
+
+\noindent \begin{tabular}{l l l}
+Dated: \today & \hspace{4em} & \MakeUppercase{\FirmName}\\
+              & & \\
+              & & \\
+              & & \\
+              & & \rule{5cm}{.25pt}\\
+              & & \AttorneyOneName \\
+              & & Attorney for \IfSubStr{\RepresentingPlaintiffOrDefendant}{Plaintiff}{\PartyOneTitle}{\PartyTwoTitle} \\
+              & & \IfSubStr{\RepresentingPlaintiffOrDefendant}{Plaintiff}{\PartyOneFull}{\PartyTwoFull} \\
+\end{tabular}
+
+\end{document}
